@@ -54,16 +54,9 @@ public final class UserController {
     @PostMapping("/user")
     ResponseEntity<User> createUser(@Valid @RequestBody User user) throws URISyntaxException {
         log.info("Request to create user: {}", user);
-        if (!user.valid()) {
-            log.info("User is not valid: {}", user);
-            return ResponseEntity
-                .status(HttpStatus.FORBIDDEN)
-                .body(user);
-        }
-        else { 
-            User result = userRepo.save(user);
-            return ResponseEntity.created(new URI("/api/user/" + result.getId())).body(result);
-        } 
+        User result = userRepo.save(user);
+        return ResponseEntity
+            .created(new URI("/api/user/" + result.getId())).body(result);
     }
     @PutMapping("/user/{id}")
     ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable Long id) {
