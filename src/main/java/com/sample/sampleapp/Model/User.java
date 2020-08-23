@@ -23,24 +23,28 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "user_table")
 
-public class User implements Patterns {
+public class User {
     @Id
     @GeneratedValue
     private long id;
     @NotNull
-    @Pattern(regexp = USERNAME, message = "invalid username");
+    @Pattern(regexp = "^[\\b|\\S|\\W]*${2,20}", message = "invalid username")
     private String username;
     @NotNull
-    @Pattern(regexp = PASSWORD, message = "invalid password");
+    @Pattern(regexp = "^(?=\\d)(?=*[a-z])(?=[A-Z])(?=*[!@#$%^&*()_+])${8,20}", 
+        message = "invalid password")
     private char[] password;
     @NotNull
-    @Pattern(regexp = PASSWORD, message = "invalid password confirmation");
+    @Pattern(regexp = "^(?=\\d)(?=[a-z])(?=[A-Z])(?=*[!@#$%^&*()_+])${8,20}",
+        message = "invalid password confirmation")
     private char[] passwordConfirmation;
     @NotNull
-    @Pattern(regexp = EMAIL, message = "invalid email");
+    @Pattern(regexp = "^[\\b|\\W|\\S]+[@]+[\\b|\\W|\\S]+[.]+[\\w|\\S]${5,30}",
+        message = "invalid email")
     private String email;
     @NotNull
-    @Pattern(regexp = EMAIL, message = "invalid email confirmation");
+    @Pattern(regexp = "^[\\b|\\W|\\S]+[@]+[\\b|\\W|\\S]+[.]+[\\w|\\S]${5,30}",
+        message = "invalid email confirmation")
     private String emailConfirmation;
     private String image;
 
