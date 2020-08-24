@@ -1,5 +1,6 @@
 package com.sample.sampleapp.Model; 
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.NotNull;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Description of this class.
@@ -27,24 +29,23 @@ public class User {
     @Id
     @GeneratedValue
     private long id;
-    @NotNull
-    @Pattern(regexp = "^[\\b|\\S|\\W]*${2,20}", message = "invalid username")
+    @NotBlank(message="\n username is blank \n")
+    @Pattern(regexp = "^(?=[a-zA-Z0-9._]{2,20}$)(?!.*[_.]{2})[^_.].*[^_.]$", 
+        message = "\n invalid username \n")
     private String username;
-    @NotNull
-    @Pattern(regexp = "^(?=\\d)(?=*[a-z])(?=[A-Z])(?=*[!@#$%^&*()_+])${8,20}", 
-        message = "invalid password")
-    private char[] password;
-    @NotNull
-    @Pattern(regexp = "^(?=\\d)(?=[a-z])(?=[A-Z])(?=*[!@#$%^&*()_+])${8,20}",
-        message = "invalid password confirmation")
-    private char[] passwordConfirmation;
-    @NotNull
-    @Pattern(regexp = "^[\\b|\\W|\\S]+[@]+[\\b|\\W|\\S]+[.]+[\\w|\\S]${5,30}",
-        message = "invalid email")
+    @NotBlank(message = "\n password is blank \n")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,}$", 
+        message = "\n invalid password \n")
+    private String password;
+    @NotBlank(message="\n the password confirmation is blank \n")
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,}$", 
+        message = "\n invalid password confirmation")
+    private String passwordConfirmation;
+    @NotBlank(message = "\n email  is blank \n")
+    @Email(message = "\n invalid email \n")
     private String email;
-    @NotNull
-    @Pattern(regexp = "^[\\b|\\W|\\S]+[@]+[\\b|\\W|\\S]+[.]+[\\w|\\S]${5,30}",
-        message = "invalid email confirmation")
+    @NotBlank(message = "\n email confirmation is blank \n")
+    @Email(message = "\n invalid email confirmation \n")
     private String emailConfirmation;
     private String image;
 
