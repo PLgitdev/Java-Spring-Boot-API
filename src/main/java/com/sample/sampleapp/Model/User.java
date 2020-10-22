@@ -30,7 +30,7 @@ public class User {
     @GeneratedValue
     private long id;
     @NotBlank(message="\n username is blank \n")
-    @Pattern(regexp = "^(?=[a-zA-Z0-9._]{2,20}$)(?!.*[_.]{2})[^_.].*[^_.]$", 
+    @Pattern(regexp = "^(?!.*[_.])(?=[a-zA-Z0-9._]).{2,20}(?!.*[_.])$", 
         message = "\n invalid username \n")
     private String username;
     @NotBlank(message = "\n password is blank \n")
